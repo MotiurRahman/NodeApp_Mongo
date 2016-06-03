@@ -11,12 +11,23 @@ var insertDocument = function(db, collection, data, callback) {
    db.collection(collection).insertOne(data, callback);
 };
 
-var findDocuments = function(db, collection, condition, callback) {
+// var findDocuments = function(db, collection, condition, callback) {
 
-    var collection = db.collection(collection);
-    // Find some documents
-    collection.find(condition).toArray(callback);
-};
+//     var collection = db.collection(collection);
+//     // Find some documents
+//     collection.find(condition).toArray(callback);
+// };
+
+var findDocuments = function(db, callback) {
+  // Get the documents collection 
+  var collection = db.collection('users');
+  // Find some documents 
+  collection.find({}).toArray(function(err, docs) {
+    console.log("Found the following records");
+    callback(docs);
+  });
+}
+
 
 var updateDocument = function(db, collection, condition, data, callback) {
   // Get the documents collection

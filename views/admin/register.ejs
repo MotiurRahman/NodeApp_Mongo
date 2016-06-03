@@ -1,16 +1,17 @@
 <%- contentFor('body')%>
+
 <h2><%= title%></h2>
 <div class="container">
-  <h2 style="text-align: center;">Pleae fill up the following</h2>
+  <h2 style="text-align: center;">Please create your user ID</h2>
   <form class="form-horizontal" id="register" role="form" method="POST" action="/admin/register">
   <div class="form-group">
-      <label class="control-label col-sm-2" for="email">Name:</label>
+      <label class="control-label col-sm-2" for="fname">Name:</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" id="fname" placeholder="Enter Name" name="fname">
       </div>
     </div>
     <div class="form-group">
-      <label class="control-label col-sm-2" for="email">Address:</label>
+      <label class="control-label col-sm-2" for="address">Address:</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" id="address" name="address" placeholder="Enter Address">
       </div>
@@ -36,8 +37,48 @@
     </div>
     <div class="form-group">        
       <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-default">Submit</button>
+        <button type="submit" class="btn btn-default">Create</button>
+        <button type="button" class="btn btn-default" id="update">Update</button>
+        <button type="button" class="btn btn-default" id="delete">Delete</button>
       </div>
     </div>
   </form>
 </div>
+
+<script type="text/javascript">
+  
+
+var mongoDB = require('./../../libs/database');
+
+$("#update").click(function(){
+        alert("Email: " + $("#email").val()+"\n"+"Name:"+ $("#fname").val());
+    });
+
+     $("#delete").click(function(){
+    
+        alert("Email: " + $("#email").val());
+
+            mongoDB.connect(function (err, db) {
+               if (err) {
+                db.close();
+                return res.status(500).json({
+                  message: "something went worng. db connection is not established"
+                });
+               }
+
+               var email = $("#email").val();
+
+               mongoDB.delete(db, 'users', {name : email }, function (deleteErr, success) {
+                 if (deleteErr) {
+                    db.close();
+                    return res.status(500).json({
+                      message: "Data delete error"
+                    });
+                 }
+                 db.close();
+                 return res.status(200).json(success);
+               });   
+            });
+    });
+
+</script>>

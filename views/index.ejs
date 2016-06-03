@@ -1,7 +1,14 @@
 <%- contentFor('body')%>
 <h2 style="color:meroon; "><center><%= title%></center></h2>
+<h2 style="color:meroon; "><center> Status:</center></h2>
 <div class="container">
-  <h2>Button Tags</h2>
-  <a href="admin/login" class="btn btn-info" role="button">Link Button</a>
-  <button type="button" class="btn btn-info" onClick="redirect()">Login</button>
+<div class="row">
+<div class="col-sm-8"> <h1>Let's start bloging</h1></div>
+<div class="col-sm-4">
+<h2>For the Admin</h2>
+  <a href="admin/login" class="btn btn-info" role="button">Admin Login Page</a>
+  <button type="button" class="btn btn-info" onClick="redirect()"><a href="admin/register">Admin Register Page</a></button>
+ </div>
+</div> 
+</div>
 </div>
