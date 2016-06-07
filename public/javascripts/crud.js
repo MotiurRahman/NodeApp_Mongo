@@ -1,9 +1,11 @@
 
-var mongoDB = require('./../../libs/database');
-
+//var mongoDB = require('./../../libs/database');
+$(document).ready(function() {
 $("#update").click(function(){
         alert("Email: " + $("#email").val()+"\n"+"Name:"+ $("#fname").val());
     });
+  });
+
      $("#delete").click(function(){
     
         alert("Email: " + $("#email").val());

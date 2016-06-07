@@ -10,11 +10,16 @@ var FileStore = require('session-file-store')(expressSession);
 
 var routes = require('./routes/index');
 var admin = require('./routes/admin');
+var users = require('./routes/users');
 
 var app = express();
 
 function checkAuthentication(req, res, next) {
-  if(req.session.isAuthenticated) {
+  console.log('isAuthenticated', req.session);
+  var currentUrl = req.url;
+  if(req.session.isAuthenticated && 
+    currentUrl !== '/login' && 
+    currentUrl !== '/logout') {
     next(null);
   } else {
     res.redirect('/admin/login')
@@ -42,7 +47,9 @@ app.use(expressSession({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
+//app.use('/admin', checkAuthentication, admin);
 app.use('/admin', admin);
+app.use('/users', users);
 
 
 // catch 404 and forward to error handler

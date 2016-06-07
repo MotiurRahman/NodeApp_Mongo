@@ -1,8 +1,6 @@
 <%- contentFor('body')%>
-
-<h2><%= title%></h2>
 <div class="container">
-  <h2 style="text-align: center;">Please create your user ID</h2>
+  <h2 style="text-align: center;">Update and Delete page</h2>
   <form class="form-horizontal" id="register" role="form" method="POST" action="/admin/register">
   <div class="form-group">
       <label class="control-label col-sm-2" for="fname">Name:</label>
@@ -37,32 +35,34 @@
     </div>
     <div class="form-group">        
       <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-default">Create</button>
         <button type="button" class="btn btn-default" id="update">Update</button>
         <button type="button" class="btn btn-default" id="delete">Delete</button>
       </div>
     </div>
   </form>
 </div>
-<!-- <script type="text/javascript">
+
+
+<script type="text/javascript">
 $(document).ready(function() {
 $("#delete").click(function(){
-        alert("Email: " + $("#email").val());
+       // alert("Email: " + $("#email").val());
 
-        var value = $("#email").val();
+        var data = {"email":$("#email").val()}
 
         $.ajax({
-          url: 'http://localhost:3000/admin/register',
-          type: 'POST',
+          url: 'http://localhost:3000/users/usersInfo',
+          type: 'delete',
           dataType: 'json',
-          data: JSON.stringify(value),
-         // data: JSON.stringify(data),
+          //data: $("#email").val(),
+          data: JSON.stringify(data),
           headers: {
               'Content-Type': 'application/json;charset=utf-8'
             }
         })
-        .done(function() {
+        .done(function(reuslt) {
           console.log("success");
+          alert(JSON.stringify(reuslt));
         })
         .fail(function() {
           console.log("error");
@@ -74,4 +74,36 @@ $("#delete").click(function(){
     });
   });
 
-</script>> -->
+$(document).ready(function() {
+$("#update").click(function(){
+        var data = {"fname":$("#fname").val(),
+                    "address":$("#address").val(),
+                    "email":$("#email").val(),
+                    "password":$("#pwd").val()
+                    }
+
+        $.ajax({
+          url: 'http://localhost:3000/users/usersInfo',
+          type: 'put',
+          dataType: 'json',
+          //data: $("#email").val(),
+          data: JSON.stringify(data),
+          headers: {
+              'Content-Type': 'application/json;charset=utf-8'
+            }
+        })
+        .done(function(reuslt) {
+          console.log("success");
+          alert(JSON.stringify(reuslt));
+        })
+        .fail(function() {
+          console.log("error");
+        })
+        .always(function() {
+          console.log("complete");
+        });
+        
+    });
+  });
+
+</script>
